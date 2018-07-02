@@ -1,3 +1,15 @@
-<p>
-  home works!
-</p>
+<main>
+  <button (click)="getData()">TEST</button>
+
+  <div *ngFor="let user of users">
+    <div>{{user.login}}</div>
+    <div>{{user.html_url}}</div>
+    <div>{{user.url}}</div>
+  </div>
+  <div *ngIf="singleUser">
+    <img src="{{singleUser.avatar_url}}" alt="">
+    <div>
+      {{singleUser.login}}
+    </div>
+  </div>
+</main>
