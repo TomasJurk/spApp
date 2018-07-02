@@ -19,7 +19,7 @@ export class HomeComponent implements OnInit {
   }
 
   getData() {
-    this._dS.getData('users/TomasJurk').subscribe((data) => {
+    this._dS.getData('users/tomasjurk').subscribe((data) => {
       console.log(data);
       if (data[0]) {
         this.users = data;
