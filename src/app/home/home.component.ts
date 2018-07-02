@@ -11,6 +11,10 @@ export class HomeComponent implements OnInit {
   users: any;
   singleUser: any;
 
+  searchType = true;
+
+  errorMsg: string;
+
   constructor(
     private _dS: DataService
   ) { }
@@ -18,15 +22,43 @@ export class HomeComponent implements OnInit {
   ngOnInit() {
   }
 
-  getData() {
-    this._dS.getData('users/tomasjurk').subscribe((data) => {
-      console.log(data);
-      if (data[0]) {
-        this.users = data;
-      } else {
+  switchToUserSearch() {
+    this.searchType = true;
+  }
+
+  switchToRepoSearch() {
+    this.searchType = false;
+  }
+
+  initSearch(searchWord) {
+    this.getData(searchWord); // &sort=stars&order=desc
+  }
+
+  getData(arg) {
+    if (this.searchType && arg.length > 2) {
+      this._dS.getData(`users/${arg}`).subscribe(data => {
+        console.log(data);
         this.singleUser = data;
-      }
-    });
+        this.users = null;
+        this.errorMsg = '';
+      }, error => {
+        this.errorMsg = `'${arg}' was not found`;
+        console.log(error.message);
+      });
+      
+    } else if (!this.searchType && arg.length > 2) {
+      this._dS.getData(`search/repositories?q=${arg}`).subscribe(data => {
+        console.log(data);
+        this.users = data.items;
+        this.singleUser = null;
+        this.errorMsg = '';
+      }, error => {
+        this.errorMsg = `'${arg}' was not found`;
+        console.log(error.message);
+      });
+    } else {
+      this.errorMsg = 'Minimum 3 letters';
+    }
   }
 
 }

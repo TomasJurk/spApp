@@ -1,7 +1,27 @@
+.search {
+  width: 100%;
+  padding: 1rem;
+}
 
+.checkbox-container {
+  margin-bottom: 1rem;
+}
+
+.chearch-type {
+  margin-right: 1rem;
+}
+
+.search-box * {
+  margin-right: .5rem;
+}
 
 @media only screen and (max-width: 768px) {
   // body {
   //     background-color: lightblue;
   // }
+}
+@media only screen and (max-width: 576px) {
+  .chearch-type {
+    display: block;
+  }
 }

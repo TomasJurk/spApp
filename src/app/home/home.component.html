@@ -1,9 +1,33 @@
 <div class="container">
-  <button (click)="getData()">TEST</button>
+
+  <div class="search">
+
+    <div class="checkbox-container">
+      <label class="chearch-type">
+        <input type="radio" checked="checked" name="radio" (click)="switchToUserSearch()"> Get user information
+      </label>
+      <label class="chearch-type">
+        <input type="radio" name="radio" (click)="switchToRepoSearch()"> Search for repositories
+      </label>
+    </div>
+
+    <div class="search-box" *ngIf="searchType">
+      <input type="text" #userName>
+      <button (click)="getData(userName.value)">Search</button>
+      <span class="is-danger" *ngIf="errorMsg">{{errorMsg}}</span>
+    </div>
+
+    <div class="search-box" *ngIf="!searchType">
+      <input type="text" #searchWord>
+      <button (click)="getData(searchWord.value)">Search</button>
+      <span class="is-danger" *ngIf="errorMsg">{{errorMsg}}</span>
+    </div>
+
+  </div>
 
   <div *ngFor="let user of users">
     <div>{{user.login}}</div>
-    <div>{{user.html_url}}</div>
+    <!-- <div>{{user.html_url}}</div> -->
     <div>{{user.url}}</div>
   </div>
   <div *ngIf="singleUser">
@@ -12,4 +36,6 @@
       {{singleUser.login}}
     </div>
   </div>
+
+
 </div>
