@@ -69,6 +69,8 @@ export class HomeComponent implements OnInit {
     this._dS.getData(url).subscribe(data => {
       this.repositories = data;
       console.log(this.repositories);
+    }, error => {
+      console.log(error.message);
     });
   }
 

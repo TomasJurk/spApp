@@ -13,6 +13,7 @@
 
 .search-box * {
   margin-right: .5rem;
+  margin-bottom: .5rem;
 }
 
 .cards {
@@ -70,6 +71,23 @@
     align-items: center;
     flex-direction: column;
   }
+
+  .search {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .search-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .search-box * {
+    margin-right: 0;
+  }
+
   .chearch-type {
     display: block;
   }
