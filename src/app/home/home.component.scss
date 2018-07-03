@@ -15,13 +15,67 @@
   margin-right: .5rem;
 }
 
-@media only screen and (max-width: 768px) {
-  // body {
-  //     background-color: lightblue;
-  // }
+.cards {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
 }
+
+.card {
+  box-shadow: 0 2px 5px 0 rgba(0,0,0,0.36);
+  height: 25rem;
+  width: 16rem;
+  margin: 1rem;
+  display: flex;
+  flex-direction: column;
+
+  img {
+    width: 100%;
+  }
+  h3 {
+    margin: .5rem auto;
+    text-align: center;
+  }
+  p {
+    margin: 0 0 .5rem .5rem;
+  }
+}
+
+.card:hover {
+  box-shadow: 0 2px 3px 0 rgba(0, 0, 0, 0.26);
+}
+
+.modal {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+  background-color: rgba(0, 0, 0, 0.26);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .modal-content {
+    background-color: white;
+    overflow: auto;
+    padding: .5rem;
+    width: 25rem;
+  }
+}
+
 @media only screen and (max-width: 576px) {
+  .container {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+  }
   .chearch-type {
     display: block;
+  }
+
+  .card {
+    height: 30rem;
+    width: 20rem;
   }
 }

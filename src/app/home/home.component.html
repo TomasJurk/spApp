@@ -1,7 +1,6 @@
 <div class="container">
 
   <div class="search">
-
     <div class="checkbox-container">
       <label class="chearch-type">
         <input type="radio" checked="checked" name="radio" (click)="switchToUserSearch()"> Get user information
@@ -22,20 +21,36 @@
       <button (click)="getData(searchWord.value)">Search</button>
       <span class="is-danger" *ngIf="errorMsg">{{errorMsg}}</span>
     </div>
-
   </div>
 
-  <div *ngFor="let user of users">
-    <div>{{user.login}}</div>
-    <!-- <div>{{user.html_url}}</div> -->
-    <div>{{user.url}}</div>
-  </div>
-  <div *ngIf="singleUser">
-    <img src="{{singleUser.avatar_url}}" alt="">
-    <div>
-      {{singleUser.login}}
+  <div class="cards">
+    <div class="card" *ngFor="let user of users">
+      <img src="{{user.owner.avatar_url}}" alt="">
+      <h3>{{user.owner.login}}</h3>
+      <p>Repositories: {{user.owner.public_repos}}</p>
+      <p class="linkToClick" (click)="getRepos('users/' + user.owner.login + '/repos')">See repositories <i class="fas fa-code-branch"></i></p>
+      <span class="spacer"></span>
+      <p><a href="{{user.owner.html_url}}" target="_blank">See user's Github page</a></p>
     </div>
   </div>
 
+  <div class="card" *ngIf="singleUser">
+    <img src="{{singleUser.avatar_url}}" alt="">
+    <h3>{{singleUser.login}}</h3>
+    <p>Repositories: {{singleUser.public_repos}}</p>
+    <p class="linkToClick" (click)="getRepos('users/' + singleUser.login + '/repos')">See repositories <i class="fas fa-code-branch"></i></p>
+    <span class="spacer"></span>
+    <p><a href="{{singleUser.html_url}}" target="_blank">See user's Github page</a></p>
+  </div>
+
+  <!-- MODAL  -->
+  <div class="modal" #modalWindow *ngIf="repositories" (click)="closeModal(modalWindow)">
+    <div class="card modal-content">
+      <h3>Repositories list</h3>
+      <p *ngFor="let rep of repositories">
+        <a href="{{rep.html_url}}" target="_blank">{{rep.name}}</a>
+      </p>
+    </div>
+  </div>
 
 </div>

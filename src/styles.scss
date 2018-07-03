@@ -27,3 +27,13 @@ body {
 .is-danger {
   color: red;
 }
+
+.linkToClick {
+  cursor: pointer;
+  width: fit-content;
+}
+
+.linkToClick:hover {
+  text-decoration: underline;
+  color: blue;
+}
