@@ -20,6 +20,17 @@
       <input type="text" #searchWord>
       <button (click)="getData(searchWord.value)">Search</button>
       <span class="is-danger" *ngIf="errorMsg">{{errorMsg}}</span>
+      <div class="sorting-checkbox">
+          <label class="chearch-type">
+            <input type="radio" checked="checked" name="sort" #bestMatch value="" (click)="setSortType('')"> Best match 
+          </label>
+          <label class="chearch-type">
+            <input type="radio" name="sort" #stars value="&sort=stars" (click)="setSortType('&sort=stars')"> Sort by stars 
+          </label>
+          <label class="chearch-type">
+            <input type="radio" name="sort" #update value="&sort=updated" (click)="setSortType('&sort=updated')"> Sort by updated
+          </label>
+      </div>
     </div>
   </div>
 
@@ -27,7 +38,7 @@
     <div class="card" *ngFor="let user of users">
       <img src="{{user.owner.avatar_url}}" alt="">
       <h3>{{user.owner.login}}</h3>
-      <p>Repositories: {{user.owner.public_repos}}</p>
+      <span class="spacer"></span>
       <p class="linkToClick" (click)="getRepos('users/' + user.owner.login + '/repos')">See repositories <i class="fas fa-code-branch"></i></p>
       <span class="spacer"></span>
       <p><a href="{{user.owner.html_url}}" target="_blank">See user's Github page</a></p>

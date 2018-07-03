@@ -14,6 +14,8 @@ export class HomeComponent implements OnInit {
 
   searchType = true;
 
+  searchCriteria = '';
+
   errorMsg: string;
 
   constructor(
@@ -31,8 +33,8 @@ export class HomeComponent implements OnInit {
     this.searchType = false;
   }
 
-  initSearch(searchWord) {
-    this.getData(searchWord); // &sort=stars&order=desc
+  setSortType(type) {
+    this.searchCriteria = type;
   }
 
   
@@ -48,7 +50,8 @@ export class HomeComponent implements OnInit {
         console.log(error.message);
       });
     } else if (!this.searchType && arg.length > 2) {
-      this._dS.getData(`search/repositories?q=${arg}`).subscribe(data => {
+      console.log(arg, this.searchCriteria);
+      this._dS.getData(`search/repositories?q=${arg}${this.searchCriteria}`).subscribe(data => {
         console.log(data);
         this.users = data['items'];
         this.singleUser = null;
