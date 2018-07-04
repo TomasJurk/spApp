@@ -42,7 +42,6 @@ export class HomeComponent implements OnInit {
   getData(arg) {
     if (this.searchType && arg.length > 2) {
       this._dS.getData(`users/${arg}`).subscribe(data => {
-        console.log(data);
         this.singleUser = data;
         this.reposFound = null;
         this.errorMsg = '';
@@ -51,9 +50,7 @@ export class HomeComponent implements OnInit {
         console.log(error.message);
       });
     } else if (!this.searchType && arg.length > 2) {
-      console.log(arg, this.searchCriteria);
       this._dS.getData(`search/repositories?q=${arg}${this.searchCriteria}`).subscribe(data => {
-        console.log(data);
         this.reposFound = data['items'];
         this.singleUser = null;
         this.errorMsg = '';
