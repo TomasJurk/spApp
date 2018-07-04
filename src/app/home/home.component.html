@@ -1,5 +1,6 @@
 <div class="container">
 
+  <!-- SEARCH CONTAINER -->
   <div class="search">
     <div class="checkbox-container">
       <label class="chearch-type">
@@ -22,10 +23,10 @@
       <span class="is-danger" *ngIf="errorMsg">{{errorMsg}}</span>
       <div class="sorting-checkbox">
           <label class="chearch-type">
-            <input type="radio" checked="checked" name="sort" #bestMatch value="" (click)="setSortType('')"> Best match 
+            <input type="radio" checked="checked" name="sort" #bestMatch value="" (click)="setSortType('')"> Best match
           </label>
           <label class="chearch-type">
-            <input type="radio" name="sort" #stars value="&sort=stars" (click)="setSortType('&sort=stars')"> Sort by stars 
+            <input type="radio" name="sort" #stars value="&sort=stars" (click)="setSortType('&sort=stars')"> Sort by stars
           </label>
           <label class="chearch-type">
             <input type="radio" name="sort" #update value="&sort=updated" (click)="setSortType('&sort=updated')"> Sort by updated
@@ -34,17 +35,19 @@
     </div>
   </div>
 
+  <!-- FOUND REPOS CARDS -->
   <div class="cards">
-    <div class="card" *ngFor="let user of users">
-      <img src="{{user.owner.avatar_url}}" alt="">
-      <h3>{{user.owner.login}}</h3>
+    <div class="card" *ngFor="let rep of reposFound">
+      <img src="{{rep.owner.avatar_url}}" alt="">
+      <h3>Owner: {{rep.owner.login}}</h3>
+      <h4 class="linkToClick" (click)="getSingleRep('repos/' + rep.owner.login + '/' + rep.name)">Repository found: {{rep.name}}</h4>
       <span class="spacer"></span>
-      <p class="linkToClick" (click)="getRepos('users/' + user.owner.login + '/repos')">See repositories <i class="fas fa-code-branch"></i></p>
-      <span class="spacer"></span>
-      <p><a href="{{user.owner.html_url}}" target="_blank">See user's Github page</a></p>
+      <p class="linkToClick" (click)="getRepos('users/' + rep.owner.login + '/repos')">See all repositories <i class="fas fa-code-branch"></i></p>
+      <p><a href="{{rep.owner.html_url}}" target="_blank">See user's Github page</a></p>
     </div>
   </div>
 
+  <!-- SINGLE USER CARD -->
   <div class="card" *ngIf="singleUser">
     <img src="{{singleUser.avatar_url}}" alt="">
     <h3>{{singleUser.login}}</h3>
@@ -54,7 +57,21 @@
     <p><a href="{{singleUser.html_url}}" target="_blank">See user's Github page</a></p>
   </div>
 
-  <!-- MODAL  -->
+  <!-- MODAL SINGLE REPOSITORY -->
+  <div class="modal" #modalWindow *ngIf="singleRepository" (click)="closeModal(modalWindow)">
+    <div class="card modal-content">
+      <h3>{{singleRepository.name}}</h3>
+      <p>Description: {{singleRepository.description}}</p>
+      <p>Language: {{singleRepository.language}}</p>
+      <p>Created at: {{singleRepository.created_at}}</p>
+      <p>Pushed at: {{singleRepository.pushed_at}}</p>
+      <p>Updated at: {{singleRepository.updated_at}}</p>
+      <span class="spacer"></span>
+      <p><a href="{{singleRepository.html_url}}" target="_blank">See at Github...</a></p>
+    </div>
+  </div>
+
+  <!-- MODAL REPOSITORIES -->
   <div class="modal" #modalWindow *ngIf="repositories" (click)="closeModal(modalWindow)">
     <div class="card modal-content">
       <h3>Repositories list</h3>

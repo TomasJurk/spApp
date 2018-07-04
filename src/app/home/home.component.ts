@@ -8,8 +8,9 @@ import { DataService } from '../core/data.service';
 })
 export class HomeComponent implements OnInit {
 
-  users: any;
+  reposFound: any;
   singleUser: any;
+  singleRepository: any;
   repositories: any;
 
   searchType = true;
@@ -37,13 +38,13 @@ export class HomeComponent implements OnInit {
     this.searchCriteria = type;
   }
 
-  
+  // Get data from github main function (single user data or searched repos)
   getData(arg) {
     if (this.searchType && arg.length > 2) {
       this._dS.getData(`users/${arg}`).subscribe(data => {
         console.log(data);
         this.singleUser = data;
-        this.users = null;
+        this.reposFound = null;
         this.errorMsg = '';
       }, error => {
         this.errorMsg = `'${arg}' was not found`;
@@ -53,7 +54,7 @@ export class HomeComponent implements OnInit {
       console.log(arg, this.searchCriteria);
       this._dS.getData(`search/repositories?q=${arg}${this.searchCriteria}`).subscribe(data => {
         console.log(data);
-        this.users = data['items'];
+        this.reposFound = data['items'];
         this.singleUser = null;
         this.errorMsg = '';
       }, error => {
@@ -64,19 +65,29 @@ export class HomeComponent implements OnInit {
       this.errorMsg = 'Minimum 3 letters';
     }
   }
-  
+
+  // Get user's repositories list
   getRepos(url) {
     this._dS.getData(url).subscribe(data => {
       this.repositories = data;
-      console.log(this.repositories);
+    }, error => {
+      console.log(error.message);
+    });
+  }
+
+  // Get single repository's data
+  getSingleRep(url) {
+    this._dS.getData(url).subscribe(data => {
+      this.singleRepository = data;
     }, error => {
       console.log(error.message);
     });
   }
 
   closeModal(modalWindow) {
-    if (event.target == modalWindow) {
+    if (event.target === modalWindow) {
       this.repositories = null;
+      this.singleRepository = null;
     }
   }
 }
